@@ -74,9 +74,9 @@ export default function Home() {
 
   // 각 단계에 맞는 안내 메시지 반환
   const getCurrentQuestion = () => {
-    if (step === 1) return "노래 생성에 반영할 키워드들을 입력해주세요.";
-    if (step === 2) return "생성할 노래에 반영할 스타일들을 입력해주세요.";
-    if (step === 3) return "만들어질 노래 제목을 입력해주세요.";
+    if (step === 1) return "키워드 입력";
+    if (step === 2) return "스타일 입력";
+    if (step === 3) return "제목 입력";
     return "입력이 완료되었습니다!";
   };
 
