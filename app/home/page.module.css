@@ -18,4 +18,29 @@
     justify-content: center;
     box-sizing: border-box;
     padding: 20px;
+    background-color: #FFF6F0;
+}
+
+.inputgroup{
+    width: 100%;
+    height:100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 20px;
+}
+
+.input{
+    width: 50%;
+    height: 10%;
+    display: flex;
+    margin-bottom: 10px;
+    font-size: large;
+    padding-left: 15px;
+}
+.sendbutton{
+    width: 10%;
+    height: 10%;
 }

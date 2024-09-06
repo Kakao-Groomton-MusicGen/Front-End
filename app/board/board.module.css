@@ -1,0 +1,41 @@
+.container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* Keeps content top-aligned */
+    box-sizing: border-box;
+    padding-top: 100px; /* Adjust padding to avoid overlapping with a fixed header */
+}
+
+.lowcontainer {
+    width: 100%;
+    max-width: 800px; /* Limiting max width for better control on large screens */
+    display: flex;
+    flex-direction: column; /* Correcting direction for a vertical list */
+    align-items: flex-start; /* Align items to the start (left) */
+    justify-content: flex-start; /* Aligns content to the top */
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #f6bca7;
+}
+
+.songTitle {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    width: 100%; /* Ensures full width within container */
+    padding: 10px;
+    background-color: #f0f0f0;
+    margin-bottom: 5px;
+}
+
+.songDetails {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: 20px; /* Slight left indent for details */
+    margin-bottom: 10px;
+    width: 100%; /* Ensures details stretch across the full width of the container */
+}
