@@ -1,23 +1,31 @@
 import styles from "./top.module.css"
 import Link from "next/link"
 import Image from "next/image"
-import temu from "../../../public/image/KakaoTalk_Photo_2024-09-06-11-43-26.png"
+import mascot from "../../../public/image/mascot.png"
+import mute from "../../../public/image/mute.png"
 
-export default function topbar(){
-    return(
+export default function Topbar() {
+    return (
         <div className={styles.container}>
             <Image
-            src={temu}
-            className={styles.component}
-            alt="테무"
-            width={80}
-            height={80}
+                src={mascot}
+                className={styles.component}
+                alt="마스코트 아이콘"
+                width={80}
+                height={70}
+            />
+            <Image
+                src={mute}
+                className={styles.component}
+                alt="뮤트"
+                width={130}
+                height={60}
             />
             <Link href="/home" legacyBehavior>
-                <a className={styles.component}>생성</a>
+                <a className={styles.textbutton}>Make</a>
             </Link>
             <Link href="/board" legacyBehavior>
-                <a className={styles.component}>게시</a>
+                <a className={styles.textbutton}>Others</a>
             </Link>
         </div>
     )
