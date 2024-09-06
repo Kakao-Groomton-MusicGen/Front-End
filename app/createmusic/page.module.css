@@ -19,3 +19,8 @@
     box-sizing: border-box;
     padding: 20px;
 }
+
+.component{
+    display: flex;
+    padding: 30px;
+}
