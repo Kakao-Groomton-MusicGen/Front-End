@@ -9,7 +9,7 @@ export default function Home() {
   const router = useRouter();
 
   const [step, setStep] = useState(1);
-  const [keyword, setKeyword] = useState("");
+  const [keywords, setKeywords] = useState("");
   const [musicstyle, setMusicStyle] = useState("");
   const [title, setTitle] = useState("");
   const [inputValue, setInputValue] = useState("");
@@ -23,7 +23,7 @@ export default function Home() {
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && inputValue.trim()) {
       if (step === 1) {
-        setKeyword(inputValue.trim());
+        setKeywords(inputValue.trim());
         setStep(2);
         setInputValue(""); // 입력창 비우기
       } else if (step === 2) {
@@ -41,8 +41,34 @@ export default function Home() {
   // 입력 완료 후 생성 버튼 클릭 처리
   const handleCreate = async () => {
     if (step === 4) {
-      console.log("Keyword:", keyword, "Style:", musicstyle, "Title:", title);
-      router.push("/createmusic");
+      console.log("Keyword:", keywords, "Style:", musicstyle, "Title:", title);
+      const songData = {
+        keywords,
+        musicstyle,
+        title,
+      };
+
+      try{
+        const response = await fetch("http://15.165.232.148:3000/api/songs", {
+          method : "POST",
+          headers:{
+            "Content-Type" : "application/json",
+          },
+          body: JSON.stringify(songData),
+        });
+
+        if(response.ok){
+          const data = await response.json();
+          console.log("노래 생성 성공 : ", data);
+          router.push("/createmusic");
+        }
+        else{
+          console.error("노래 생성 실패 : ", response.statusText);
+        }
+      }
+      catch(error){
+        console.error("노래 생성 중 오류 발생 : ",error);
+      }
     }
   };
 
@@ -62,7 +88,7 @@ export default function Home() {
           {/* 단계별로 질문과 입력값을 쌓아서 출력 */}
           <div className={styles.chatMessage}>
             <p className={styles.chatQuestion}>노래 생성에 반영할 키워드들을 입력해주세요.</p>
-            {keyword && <p className={styles.chatAnswer}>{keyword}</p>}
+            {keywords && <p className={styles.chatAnswer}>{keywords}</p>}
           </div>
           {step > 1 && (
             <div className={styles.chatMessage}>
@@ -80,14 +106,14 @@ export default function Home() {
 
         {/* 입력창 */}
         {step < 4 && (
-          <input
-            type="text"
-            placeholder={getCurrentQuestion()}
-            className={styles.input}
-            value={inputValue}
-            onChange={handleInputChange}
-            onKeyPress={handleKeyPress} // 'Enter' 처리
-          />
+            <input
+              type="text"
+              placeholder={getCurrentQuestion()}
+              className={styles.input}
+              value={inputValue}
+              onChange={handleInputChange}
+              onKeyPress={handleKeyPress} // 'Enter' 처리
+            />
         )}
 
         {/* 생성 버튼: 입력이 완료되면 활성화 */}
