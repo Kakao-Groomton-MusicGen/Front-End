@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Top from "../(common)/(component)/(topbar)/top";
 import styles from "./board.module.css";
 
-interface Post {
+interface Song {
     id: number;
     userId: string;
     title: string;
@@ -13,53 +13,31 @@ interface Post {
 }
 
 export default function Board() {
-    const [posts, setPosts] = useState<Post[]>([]); // 게시글 상태
-
-    // 서버에서 게시글 데이터를 가져오는 함수
-    const fetchPosts = async () => {
-        try {
-            const response = await fetch("http://15.165.232.148:3000/posts", {
-                method: "/GET",
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                setPosts(data); // 가져온 게시글 데이터를 상태에 저장
-            } else {
-                console.error("게시글을 불러오지 못했습니다:", response.statusText);
-            }
-        } catch (error) {
-            console.error("게시글 가져오는 중 오류 발생:", error);
-        }
-    };
-
-    // 컴포넌트가 처음 렌더링될 때 게시글을 가져옴
-    useEffect(() => {
-        fetchPosts();
-    }, []);
+    const [songs, setSongs] = useState<Song[]>([
+        { id: 1, userId: "user123", title: "Sunny Day Sound", url: "https://kakao-moreburger-backend.s3.ap-northeast-2.amazonaws.com/Sunny+Day+Sound.mp3", isVisible: false },
+        { id: 2, userId: "user456", title: "Rainy Evening Sound", url: "https://kakao-moreburger-backend.s3.ap-northeast-2.amazonaws.com/Rainy+Evening+Sound.mp3", isVisible: false }
+    ]);
 
     const toggleVisibility = (id: number) => {
-        const updatedPosts = posts.map(post =>
-            post.id === id ? { ...post, isVisible: !post.isVisible } : post
-        );
-        setPosts(updatedPosts);
+        const updatedSongs = songs.map(song => song.id === id ? { ...song, isVisible: !song.isVisible } : song);
+        setSongs(updatedSongs);
     };
 
     return (
         <div className={styles.container}>
             <Top />
             <div className={styles.lowcontainer}>
-                {posts.map(post => (
-                    <div key={post.id}>
-                        <div onClick={() => toggleVisibility(post.id)} className={styles.songTitle}>
-                            <span>{post.userId}</span> <span>{post.title}</span>
+                {songs.map(song => (
+                    <div key={song.id}>
+                        <div onClick={() => toggleVisibility(song.id)} className={styles.songTitle}>
+                            <span>{song.userId}</span> <span>{song.title}</span>
                         </div>
-                        {post.isVisible && (
+                        {song.isVisible && (
                             <div className={styles.songDetails}>
                                 <audio controls>
-                                    <source src={post.url} type="audio/mp3" />
+                                    <source src={song.url} type="audio/mp3" />
                                 </audio>
-                                <a href={post.url} download={`${post.title}.mp3`}>
+                                <a href={song.url} download={`${song.title}.mp3`}>
                                     <button type="button">Download</button>
                                 </a>
                             </div>
