@@ -13,6 +13,7 @@ export default function Topbar() {
                 alt="마스코트 아이콘"
                 width={80}
                 height={70}
+                priority
             />
             <Image
                 src={mute}

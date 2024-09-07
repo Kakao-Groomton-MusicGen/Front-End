@@ -19,11 +19,13 @@ export default function Board() {
     const fetchPosts = async () => {
         try {
             const response = await fetch("http://15.165.232.148:3000/posts", {
-                method: "/GET",
+                method: "GET",
             });
 
+            console.log(response)
             if (response.ok) {
                 const data = await response.json();
+                console.log(data);
                 setPosts(data); // 가져온 게시글 데이터를 상태에 저장
             } else {
                 console.error("게시글을 불러오지 못했습니다:", response.statusText);
